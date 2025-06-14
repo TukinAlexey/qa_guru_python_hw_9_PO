@@ -1,26 +1,28 @@
+from demoqa_tests.data.users import User
 from demoqa_tests.pages.registration_page import RegistrationPage
 
 
 def test_google_chrome_open(open_browser_chrome):
-
     registration_page = RegistrationPage()
+    user = User(
+        first_name='Иван',
+        last_name='Иванов',
+        email='test@test.com',
+        gender='Male',
+        phone_number='9999999999',
+        year='1991',
+        month='January',
+        day='01',
+        subjects='English',
+        hobbies='Sports',
+        picture='Picture.png',
+        address='RF. Moscow, Arbat, 1',
+        state='Haryana',
+        city='Karnal'
+    )
 
-    registration_page.fill_first_name('Иван')
-    registration_page.fill_last_name('Иванов')
-    registration_page.fill_user_email('test@test.com')
-    registration_page.fill_gender()
-    registration_page.fill_user_number('9999999999')
-    registration_page.fill_date_of_birth()
-    registration_page.fill_hobbies()
-    registration_page.fill_picture()
-    registration_page.fill_current_address('RF. Moscow, Arbat, 1')
-    registration_page.fill_subjects('English')
-    registration_page.fill_state('Haryana')
-    registration_page.fill_city('Karnal')
-    registration_page.fill_submit()
+    #Заполнение формы
+    registration_page.user_registered(user)
 
     # Проверка данных в таблице
-
-    registration_page.registered_user_with_2('Иван Иванов', 'test@test.com', 'Male', '9999999999', '01 January,1991',
-                                             'English', 'Sports', 'Picture.png', 'RF. Moscow, Arbat, 1',
-                                             'Haryana Karnal')
+    registration_page.registered_user_with(user)
