@@ -18,7 +18,6 @@ class RegistrationPage:
         self.city = browser.element('#react-select-4-input')
         self.submit = browser.element('#submit')
         self.registered_user = browser.all('td')
-        self.registered_user_2 = browser.element('.table').all('td')
 
     def fill_first_name(self, value):
         self.first_name.type(value)
