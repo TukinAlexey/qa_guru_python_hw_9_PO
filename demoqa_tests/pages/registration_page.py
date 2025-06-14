@@ -8,10 +8,10 @@ class RegistrationPage:
         self.first_name = browser.element('#firstName')
         self.last_name = browser.element('#lastName')
         self.user_email = browser.element('#userEmail')
-        self.gender = browser.element('[for="gender-radio-1"]')
+        self.gender = browser.all('[name=gender]')
         self.user_number = browser.element('#userNumber')
         self.subjects = browser.element('#subjectsInput')
-        self.hobbies = browser.element('[for="hobbies-checkbox-1"]')
+        self.hobbies = browser.all('#hobbiesWrapper label')
         self.upload_pictures = browser.element('#uploadPicture')
         self.current_address = browser.element('#currentAddress')
         self.state = browser.element('#react-select-3-input')
@@ -29,29 +29,28 @@ class RegistrationPage:
     def fill_user_email(self, value):
         self.user_email.type(value)
 
-    def fill_gender(self):
-        self.gender.click()
+    def fill_gender(self, value):
+        self.gender.element_by(have.value(value)).element('..').click()
 
     def fill_user_number(self, value):
         self.user_number.type(value)
 
-    def fill_date_of_birth(self):
+    def fill_date_of_birth(self, year, month, day):
         browser.element('#dateOfBirthInput').click()
-        browser.element('.react-datepicker__month-select').click()
-        browser.element('[value="0"]').click()
-        browser.element('.react-datepicker__year-select').click()
-        browser.element('[value="1991"]').click()
-        browser.element('[aria-label="Choose Tuesday, January 1st, 1991"]').click()
+        browser.element('.react-datepicker__month-select').type(month)
+        browser.element('.react-datepicker__year-select').type(year)
+        browser.element(
+            f'.react-datepicker__day--0{day}:not(.react-datepicker__day--outside-month)'
+        ).click()
 
     def fill_subjects(self, value):
         self.subjects.type(value).press_enter()
 
-    def fill_hobbies(self):
-        self.hobbies.click()
+    def fill_hobbies(self, value):
+        self.hobbies.element_by(have.exact_text(value)).click()
 
-    def fill_picture(self):
-        my_picture = 'Picture.png'
-        self.upload_pictures.send_keys(os.path.abspath(my_picture))
+    def fill_picture(self, value):
+        self.upload_pictures.send_keys(os.path.abspath(value))
 
     def fill_current_address(self, value):
         self.current_address.type(value)
@@ -65,19 +64,9 @@ class RegistrationPage:
     def fill_submit(self):
         self.submit.click()
 
-    def registered_user_with(self):
-        self.registered_user.should(have.exact_texts(
-            'Student Name', 'Иван Иванов', 'Student Email',
-            'test@test.com', 'Gender', 'Male', 'Mobile', '9999999999',
-            'Date of Birth', '01 January,1991', 'Subjects', 'English',
-            'Hobbies', 'Sports', 'Picture', 'Picture.png', 'Address',
-            'RF. Moscow, Arbat, 1', 'State and City', 'Haryana Karnal',
-        )
-        )
-
-    def registered_user_with_2(self, student_name, student_email, gender, mobile, date_of_birth, subjects, hobbies,
-                               picture, address, state_and_city):
-        self.registered_user_2.even.should(have.exact_texts(
+    def registered_user_with(self, student_name, student_email, gender, mobile, date_of_birth, subjects, hobbies,
+                             picture, address, state_and_city):
+        self.registered_user.even.should(have.exact_texts(
             student_name, student_email, gender, mobile,
             date_of_birth, subjects,
             hobbies, picture, address, state_and_city,
