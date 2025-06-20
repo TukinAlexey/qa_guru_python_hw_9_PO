@@ -20,7 +20,7 @@ class RegistrationPage:
         self.registered_user = browser.all('td')
 
 
-    def user_registered(self, user):
+    def fill_user_registration_form(self, user):
         self.first_name.type(user.first_name)
         self.last_name.type(user.last_name)
         self.user_email.type(user.email)
@@ -40,7 +40,7 @@ class RegistrationPage:
         self.city.type(user.city).press_enter()
         self.submit.click()
 
-    def registered_user_with(self, user):
+    def check_registered_user(self, user):
         self.registered_user.even.should(have.exact_texts(
             f'{user.first_name} {user.last_name}',
             user.email,

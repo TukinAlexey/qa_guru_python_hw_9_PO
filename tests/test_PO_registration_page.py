@@ -22,7 +22,7 @@ def test_google_chrome_open(open_browser_chrome):
     )
 
     #Заполнение формы
-    registration_page.user_registered(user)
+    registration_page.fill_user_registration_form(user)
 
     # Проверка данных в таблице
-    registration_page.registered_user_with(user)
+    registration_page.check_registered_user(user)
