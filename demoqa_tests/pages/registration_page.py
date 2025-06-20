@@ -63,8 +63,8 @@ class RegistrationPage:
     def fill_submit(self):
         self.submit.click()
 
-    def registered_user_with(self, student_name, student_email, gender, mobile, date_of_birth, subjects, hobbies,
-                             picture, address, state_and_city):
+    def check_registered_user(self, student_name, student_email, gender, mobile, date_of_birth, subjects, hobbies,
+                              picture, address, state_and_city):
         self.registered_user.even.should(have.exact_texts(
             student_name, student_email, gender, mobile,
             date_of_birth, subjects,

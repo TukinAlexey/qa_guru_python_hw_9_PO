@@ -21,6 +21,6 @@ def test_google_chrome_open(open_browser_chrome):
 
     # Проверка данных в таблице
 
-    registration_page.registered_user_with('Иван Иванов', 'test@test.com', 'Male', '9999999999', '01 January,1991',
+    registration_page.check_registered_user('Иван Иванов', 'test@test.com', 'Male', '9999999999', '01 January,1991',
                                              'English', 'Sports', 'Picture.png', 'RF. Moscow, Arbat, 1',
                                              'Haryana Karnal')
